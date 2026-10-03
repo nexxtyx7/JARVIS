@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>J.A.R.V.I.S — Web Assistant</title>
+<meta name="theme-color" content="#07111f">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="arc">J</div><div><b>J.A.R.V.I.S</b><span>WEB ASSISTANT</span></div></div>
+    <button class="nav active" data-panel="home">⌂ <span>Início</span></button>
+    <button class="nav" data-panel="tools">⚙ <span>Ferramentas</span></button>
+    <button class="nav" data-panel="camera">◉ <span>Câmera / OCR</span></button>
+    <button class="nav" data-panel="memory">▣ <span>Memória</span></button>
+    <div class="side-bottom"><span class="dot"></span><span id="statusText">Pronto para uso</span></div>
+  </aside>
+
+  <main>
+    <header><div><small>PERSONAL AI ASSISTANT</small><h1 id="greeting">Boa noite, senhor.</h1></div><div class="clock" id="clock">--:--:--</div></header>
+
+    <section id="home" class="panel active">
+      <div class="hero">
+        <div class="orb-wrap"><div class="orb"><div class="orb-core"></div></div></div>
+        <div class="hero-copy"><div class="eyebrow">ONLINE • BROWSER MODE</div><h2>J.A.R.V.I.S está pronto.</h2><p>Fale comigo ou escreva um comando. Nada de Python, pip ou programas extras.</p><button id="micBtn" class="primary">🎙 Ativar microfone</button></div>
+      </div>
+      <div class="command-row"><input id="command" placeholder="Digite um comando… ex.: what is the time / open youtube / weather"><button id="send">Enviar</button></div>
+      <div class="grid">
+        <article class="card"><span>HORÁRIO</span><strong id="timeCard">--:--</strong><small>Hora local do navegador</small></article>
+        <article class="card"><span>BATERIA</span><strong id="battery">—</strong><small id="batterySub">Disponibilidade depende do navegador</small></article>
+        <article class="card"><span>LOCALIZAÇÃO</span><strong id="location">—</strong><small>Permissão solicitada somente quando necessária</small></article>
+        <article class="card wide"><span>RESPOSTA DO JARVIS</span><p id="output">At your service. Digite ou fale um comando.</p></article>
+      </div>
+    </section>
+
+    <section id="tools" class="panel"><div class="section-title"><small>FERRAMENTAS</small><h2>Comandos disponíveis</h2></div><div class="tool-grid">
+      <button data-command="open youtube">▶️ Abrir YouTube</button><button data-command="search youtube">🔎 Pesquisar YouTube</button><button data-command="open google">🌐 Abrir Google</button><button data-command="open amazon">🛒 Abrir Amazon</button><button data-command="open stackoverflow">💻 Stack Overflow</button><button data-command="github">🐙 GitHub</button><button data-command="weather">🌤 Clima</button><button data-command="news">📰 Notícias</button><button data-command="joke">😂 Piada</button><button data-command="cpu">📊 Sistema</button><button data-command="screenshot">📸 Captura de tela</button><button data-command="dictionary">📖 Dicionário</button><button data-command="location">📍 Maps</button><button data-command="play music">🎵 Música</button><button data-command="email to gaurav">✉️ E-mail</button><button data-command="wikipedia marvel">📚 Wikipedia</button>
+    </div><div class="notice">Algumas funções que no Python controlavam o Windows foram adaptadas para o navegador: captura de tela usa permissão do navegador, música usa um arquivo escolhido por você e e-mail abre o seu aplicativo de e-mail.</div></section>
+
+    <section id="camera" class="panel"><div class="section-title"><small>VISÃO</small><h2>Câmera e OCR</h2></div><div class="camera-grid"><div class="camera-box"><video id="video" autoplay muted playsinline></video><div class="camera-actions"><button id="startCamera">Iniciar câmera</button><button id="stopCamera">Parar</button></div></div><div class="ocr-box"><h3>OCR</h3><p>Envie uma foto e o J.A.R.V.I.S tenta ler o texto automaticamente.</p><input id="ocrFile" type="file" accept="image/*"><button id="ocrBtn">Ler texto</button><pre id="ocrResult">Nenhum texto lido ainda.</pre></div></div><div class="notice">A antiga identificação facial usava OpenCV + um modelo Python. No navegador, o acesso à câmera funciona sem instalação; a identificação biométrica treinada do projeto original não é reutilizada automaticamente.</div></section>
+
+    <section id="memory" class="panel"><div class="section-title"><small>MEMÓRIA</small><h2>Memória local</h2></div><div class="memory-card"><p>O que você pedir para eu lembrar fica salvo apenas neste navegador.</p><textarea id="memoryInput" placeholder="Escreva algo para o J.A.R.V.I.S lembrar…"></textarea><div><button id="saveMemory" class="primary">Salvar memória</button><button id="clearMemory">Apagar</button></div><div id="memoryView"></div></div></section>
+  </main>
+</div>
+<div id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<script src="app.js"></script>
+</body></html>

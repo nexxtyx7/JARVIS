@@ -1,0 +1,54 @@
+const $=s=>document.querySelector(s);const $$=s=>document.querySelectorAll(s);let dictionary={};let recognition=null;let stream=null;
+const output=$('#output');
+function say(text){output.textContent=text;if('speechSynthesis' in window){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=.96;speechSynthesis.speak(u)}}
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('toast-show');setTimeout(()=>e.classList.remove('toast-show'),2600)}
+function clock(){const d=new Date();const t=d.toLocaleTimeString('pt-BR');$('#clock').textContent=t;$('#timeCard').textContent=t;$('#greeting').textContent=(d.getHours()<12?'Bom dia':d.getHours()<18?'Boa tarde':'Boa noite')+', senhor.'}setInterval(clock,1000);clock();
+fetch('data.json').then(r=>r.json()).then(x=>dictionary=x).catch(()=>{});
+if(navigator.getBattery){navigator.getBattery().then(b=>{const update=()=>{$('#battery').textContent=Math.round(b.level*100)+'%';$('#batterySub').textContent=b.charging?'Carregando':'Bateria do dispositivo'};update();b.addEventListener('levelchange',update);b.addEventListener('chargingchange',update)})}
+function speakAndDo(q){q=q.toLowerCase().trim();if(!q)return;$('#statusText').textContent='Processando…';
+if(q.includes('jarvis are you there'))return done('Yes Sir, at your service.');
+if(q.includes('jarvis who made you')||q.includes('who made you'))return done('I am J.A.R.V.I.S, adapted from the original Python project to run directly in the browser.');
+if(q.includes('your name'))return done('My name is J.A.R.V.I.S.');
+if(q.includes('stands for'))return done('J.A.R.V.I.S stands for Just A Rather Very Intelligent System.');
+if(q.includes('the time')||q==='time'||q.includes('hora'))return done('Sir, the time is '+new Date().toLocaleTimeString('en-US'));
+if(q.includes('open youtube'))return open('https://youtube.com','Opening YouTube.');
+if(q.includes('open amazon'))return open('https://amazon.com','Opening Amazon.');
+if(q.includes('open google'))return open('https://google.com','Opening Google.');
+if(q.includes('open stackoverflow'))return open('https://stackoverflow.com','Opening Stack Overflow.');
+if(q.includes('github'))return open('https://github.com/gauravsingh9356','Opening GitHub.');
+if(q.includes('search youtube'))return askSearch('youtube');
+if(q.startsWith('youtube '))return open('https://www.youtube.com/results?search_query='+encodeURIComponent(q.slice(8)),'Searching YouTube for '+q.slice(8));
+if(q.startsWith('search '))return open('https://www.google.com/search?q='+encodeURIComponent(q.slice(7)),'Here is what I found for '+q.slice(7));
+if(q.includes('wikipedia'))return wiki(q.replace('wikipedia','').trim());
+if(q.includes('weather')||q.includes('clima'))return weather();
+if(q.includes('location')||q.includes('maps')||q.includes('mapa'))return askLocation();
+if(q.includes('news')||q.includes('notícias'))return news();
+if(q.includes('joke')||q.includes('piada'))return joke();
+if(q.includes('dictionary')||q.includes('dicionário'))return askDictionary();
+if(q.includes('cpu')||q.includes('system')||q.includes('sistema'))return systemInfo();
+if(q.includes('screenshot')||q.includes('captura'))return screenshot();
+if(q.includes('play music')||q.includes('música'))return music();
+if(q.includes('email'))return email();
+if(q.includes('remember that')||q.includes('remember')){const m=q.replace(/remember that|remember/,'').trim();if(m){localStorage.setItem('jarvisMemory',m);renderMemory();return done('I will remember that in this browser.')}$('#memoryInput').focus();return done('What should I remember, Sir?');}
+if(q.includes('do you remember'))return done(localStorage.getItem('jarvisMemory')||'I do not have anything saved yet.');
+if(q.includes('female voice')||q.includes('male voice')||q.includes('voice'))return done('Voice is controlled by the voices available in your browser.');
+return done('I did not understand that command. Try “weather”, “open youtube”, “search…”, “wikipedia…”, “dictionary”, “news”, “screenshot”, or “what is the time”.');}
+function done(t){$('#statusText').textContent='Pronto para uso';say(t)}function open(url,msg){window.open(url,'_blank','noopener');done(msg)}
+async function wiki(q){if(!q)return done('Tell me what you want to search on Wikipedia.');try{const r=await fetch('https://en.wikipedia.org/api/rest_v1/page/summary/'+encodeURIComponent(q.replaceAll(' ','_')));if(!r.ok)throw 0;const d=await r.json();done((d.extract||'No summary found.').slice(0,650))}catch(e){open('https://www.google.com/search?q='+encodeURIComponent('Wikipedia '+q),'I could not load Wikipedia directly, so I opened a search.') }}
+async function weather(){if(!navigator.geolocation)return done('Geolocation is not available in this browser.');done('Requesting your location…');navigator.geolocation.getCurrentPosition(async p=>{try{const {latitude:lat,longitude:lon}=p.coords;const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code&timezone=auto`);const d=await r.json();$('#location').textContent=lat.toFixed(2)+', '+lon.toFixed(2);const c=d.current;done(`Current temperature is ${c.temperature_2m}°C. Humidity ${c.relative_humidity_2m}%. Wind ${c.wind_speed_10m} km/h.`)}catch(e){done('I could not retrieve the weather right now.')}},()=>done('Location permission was denied.'))}
+function askLocation(){const q=prompt('What location should I open in Maps?');if(q)open('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q),'Opening '+q+' in Maps.');}
+async function news(){done('Loading headlines…');try{const r=await fetch('https://api.allorigins.win/raw?url='+encodeURIComponent('https://feeds.bbci.co.uk/news/rss.xml'));const x=await r.text();const doc=new DOMParser().parseFromString(x,'text/xml');const titles=[...doc.querySelectorAll('item title')].slice(0,5).map(x=>x.textContent);done(titles.length?titles.join(' • '):'No headlines found.')}catch(e){open('https://news.google.com/','I could not load the headlines directly, so I opened Google News.')}}
+function joke(){const a=['Why do programmers prefer dark mode? Because light attracts bugs.','I would tell you a UDP joke, but you might not get it.','There are only 10 kinds of people: those who understand binary and those who do not.'];done(a[Math.floor(Math.random()*a.length)])}
+function askDictionary(){const w=prompt('Which word should I search?');if(!w)return;const key=w.toLowerCase();if(dictionary[key])return done(dictionary[key]);open('https://www.google.com/search?q='+encodeURIComponent('define '+w),'I could not find that word in the local dictionary, so I opened a definition search.')}
+function systemInfo(){let parts=[];if(navigator.deviceMemory)parts.push('Device memory: '+navigator.deviceMemory+' GB');if(navigator.hardwareConcurrency)parts.push('Logical processors: '+navigator.hardwareConcurrency);if(navigator.onLine!==undefined)parts.push(navigator.onLine?'Online':'Offline');done(parts.length?parts.join('. ')+'.':'Browser system information is limited for privacy.')}
+async function screenshot(){if(!navigator.mediaDevices?.getDisplayMedia)return done('Screen capture is not supported here.');try{const s=await navigator.mediaDevices.getDisplayMedia({video:true});const v=document.createElement('video');v.srcObject=s;await v.play();await new Promise(r=>setTimeout(r,300));const c=document.createElement('canvas');c.width=v.videoWidth;c.height=v.videoHeight;c.getContext('2d').drawImage(v,0,0);s.getTracks().forEach(t=>t.stop());const a=document.createElement('a');a.href=c.toDataURL('image/png');a.download='jarvis-screenshot.png';a.click();done('Screenshot captured and downloaded.')}catch(e){done('Screen capture was cancelled.')}}
+function music(){const i=document.createElement('input');i.type='file';i.accept='audio/*';i.onchange=()=>{if(i.files[0]){const u=URL.createObjectURL(i.files[0]);const a=new Audio(u);a.play();done('Playing the selected music file.')}};i.click()}
+function email(){const to=prompt('Email address?');if(!to)return;const subject=prompt('Subject?')||'Message from J.A.R.V.I.S';const body=prompt('Message?')||'';location.href=`mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;done('Opening your email app.')}
+function askSearch(type){const q=prompt('What do you want to search on YouTube?');if(q)open('https://www.youtube.com/results?search_query='+encodeURIComponent(q),'Searching YouTube for '+q)}
+$('#send').onclick=()=>speakAndDo($('#command').value);$('#command').addEventListener('keydown',e=>{if(e.key==='Enter')$('#send').click()});
+$$('.tool-grid button').forEach(b=>b.onclick=()=>speakAndDo(b.dataset.command));
+$$('.nav').forEach(b=>b.onclick=()=>{$$('.nav').forEach(x=>x.classList.remove('active'));b.classList.add('active');$$('.panel').forEach(x=>x.classList.remove('active'));$('#'+b.dataset.panel).classList.add('active')});
+$('#micBtn').onclick=()=>{const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return done('Speech recognition is not supported here. Use Chrome or type your command.');if(recognition){recognition.stop();return}recognition=new SR();recognition.lang='en-US';recognition.interimResults=false;recognition.onstart=()=>{$('#micBtn').textContent='🔴 Ouvindo…';$('#statusText').textContent='Ouvindo…'};recognition.onresult=e=>{const t=e.results[0][0].transcript;$('#command').value=t;speakAndDo(t)};recognition.onerror=()=>done('I could not understand the microphone. Try again.');recognition.onend=()=>{recognition=null;$('#micBtn').textContent='🎙 Ativar microfone'};recognition.start()};
+$('#startCamera').onclick=async()=>{try{stream=await navigator.mediaDevices.getUserMedia({video:true});$('#video').srcObject=stream;done('Camera started.')}catch(e){done('Camera permission was denied or unavailable.')}};$('#stopCamera').onclick=()=>{stream?.getTracks().forEach(t=>t.stop());$('#video').srcObject=null;done('Camera stopped.')};
+$('#ocrBtn').onclick=async()=>{const f=$('#ocrFile').files[0];if(!f)return toast('Escolha uma imagem primeiro.');$('#ocrResult').textContent='Lendo imagem…';try{const r=await Tesseract.recognize(f,'eng');$('#ocrResult').textContent=r.data.text||'No text detected.';done('OCR finished.')}catch(e){$('#ocrResult').textContent='OCR failed.';done('I could not read the image.')}};
+function renderMemory(){$('#memoryView').textContent=localStorage.getItem('jarvisMemory')||'Nenhuma'}renderMemory();$('#saveMemory').onclick=()=>{const v=$('#memoryInput').value.trim();if(v)localStorage.setItem('jarvisMemory',v);renderMemory();toast('Memória salva neste navegador.');say('Memory saved.')} ;$('#clearMemory').onclick=()=>{localStorage.removeItem('jarvisMemory');renderMemory();toast('Memória apagada.');say('Memory cleared.')};
