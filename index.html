@@ -1,51 +1,56 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#020812"><title>J.A.R.V.I.S — Personal Assistant</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#020910"><title>J.A.R.V.I.S — Neural Interface</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="scanlines"></div><div class="grid"></div>
+<div id="boot" class="boot"><div class="boot-ring"></div><div class="boot-title">J.A.R.V.I.S</div><div id="bootLog">INITIALIZING NEURAL INTERFACE...</div></div>
+<div class="scanlines"></div><div class="noise"></div>
 <header class="topbar">
-  <div class="brand"><div class="brand-orb">✦</div><div><b>J.A.R.V.I.S</b><small>JUST A RATHER VERY INTELLIGENT SYSTEM</small></div><span class="version">v3.0</span></div>
-  <div class="top-status"><span id="date">--/--/----</span><span id="clock">--:--:--</span><i>◉ ONLINE</i><button id="settings">⚙</button></div>
+  <div class="brand"><span class="arc"></span><div><b>J.A.R.V.I.S</b><small>JUST A RATHER VERY INTELLIGENT SYSTEM</small></div></div>
+  <div class="top-status"><span id="netDot"></span><span id="netText">ONLINE</span><span class="sep">//</span><span id="clock">00:00:00</span><button id="settingsBtn" class="icon-btn">⚙</button></div>
 </header>
-<main class="dashboard">
-<aside class="sidebar panel">
- <div class="panel-title">COMMAND CENTER</div>
- <button class="nav active" data-action="listen">🎙 <span>Comandos de voz</span></button>
- <button class="nav" data-action="weather">☼ <span>Clima</span></button>
- <button class="nav" data-action="wiki">W <span>Wikipedia</span></button>
- <button class="nav" data-action="search">⌕ <span>Pesquisar</span></button>
- <button class="nav" data-action="youtube">▶ <span>YouTube</span></button>
- <button class="nav" data-action="amazon">a <span>Amazon</span></button>
- <button class="nav" data-action="news">▣ <span>Notícias</span></button>
- <button class="nav" data-action="joke">☻ <span>Piadas</span></button>
- <button class="nav" data-action="dictionary">◇ <span>Dicionário</span></button>
- <button class="nav" data-action="memory">▣ <span>Memória</span></button>
- <button class="nav" data-action="screenshot">▣ <span>Captura de tela</span></button>
- <button class="nav" data-action="camera">◎ <span>Câmera</span></button>
- <button class="nav" data-action="music">♫ <span>Música</span></button>
- <button class="nav" data-action="email">✉ <span>E-mail</span></button>
- <button class="nav" data-action="system">⚙ <span>Sistema</span></button>
-</aside>
-<section class="center">
- <div class="identity panel"><div class="avatar">◈</div><div><strong>J.A.R.V.I.S</strong><span><em></em> ONLINE</span><small>Pronto para ajudar.</small></div><div class="latency">RESPONSE<br><b id="latency">0.2s</b></div></div>
- <div class="core-wrap"><div class="orbit o1"></div><div class="orbit o2"></div><div class="orbit o3"></div><div class="core"><span>J.A.R.V.I.S</span><b id="coreState">ONLINE</b></div></div>
- <div class="voice panel"><div class="voice-icon">⌁</div><div class="wave" id="wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="voice-text"><b id="voiceTitle">RECONHECIMENTO DE VOZ</b><span id="voiceStatus">Aguardando comando...</span></div><button id="mic" class="mic">🎙</button></div>
- <div class="message panel"><div class="pulse"></div><div><b id="responseTitle">Olá, sou o J.A.R.V.I.S.</b><span id="response">Como posso ajudar hoje?</span></div></div>
- <div class="quick panel"><div class="section-title">FUNÇÕES RÁPIDAS</div><div class="quick-grid" id="quickGrid"></div></div>
- <div class="command"><button id="commandMic">🎙</button><input id="command" placeholder="Digite ou fale um comando..." autocomplete="off"><button id="send">➤</button></div>
- </section>
-<aside class="right">
- <section class="panel weather"><div class="section-title">CLIMA <span id="weatherPlace">LOCAL</span></div><div class="weather-main"><div class="weather-icon">☁️</div><div><b id="temp">--°C</b><span id="desc">Buscando condições...</span></div></div><div class="forecast"><div>HOJE<b id="f1">--°</b></div><div>AMANHÃ<b id="f2">--°</b></div><div>SEX<b id="f3">--°</b></div><div>SÁB<b id="f4">--°</b></div></div></section>
- <section class="panel news"><div class="section-title">ÚLTIMAS NOTÍCIAS <button id="newsMore">VER MAIS</button></div><div id="newsList"><div class="newsrow"><span>01</span><div><b>J.A.R.V.I.S</b><p>Conectando aos seus serviços...</p></div></div><div class="newsrow"><span>02</span><div><b>SISTEMA</b><p>Todos os módulos web estão prontos.</p></div></div></div></section>
- <section class="panel system"><div class="section-title">INFORMAÇÕES DO SISTEMA</div><div class="sysrow"><span>◫ Sistema</span><b id="os">Navegador</b></div><div class="sysrow"><span>⚙ CPU</span><b id="cpu">--</b></div><div class="sysrow"><span>▣ Memória</span><b id="ram">--</b></div><div class="meter"><span>ATIVIDADE</span><b id="usage">28%</b><div><i id="meterBar"></i></div></div><div class="chart"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></section>
- <section class="panel quote"><div class="helmet">◉</div><p>“O futuro não é algo que acontece.<br>É algo que nós criamos.”</p><small>— J.A.R.V.I.S</small></section>
-</aside>
+<main class="hud">
+  <aside class="left-panel panel">
+    <div class="panel-title">SYSTEM MODULES</div>
+    <button data-action="voice">◉ <span>VOICE LINK</span><i>V</i></button>
+    <button data-action="hologram">◇ <span>HOLOGRAM</span><i>H</i></button>
+    <button data-action="camera">◎ <span>CAMERA</span><i>C</i></button>
+    <button data-action="weather">☼ <span>WEATHER</span><i>W</i></button>
+    <button data-action="news">▤ <span>NEWS FEED</span><i>N</i></button>
+    <button data-action="memory">◌ <span>MEMORY</span><i>M</i></button>
+    <button data-action="search">⌕ <span>WEB SEARCH</span><i>S</i></button>
+    <button data-action="system">▣ <span>SYSTEM</span><i>SYS</i></button>
+    <div class="mini-meter"><label>NEURAL LOAD <b id="loadVal">27%</b></label><div><span id="loadBar"></span></div></div>
+    <div class="mini-meter"><label>UPLINK <b>SECURE</b></label><div><span class="static full"></span></div></div>
+  </aside>
+
+  <section class="core-zone">
+    <div class="target-corners"></div>
+    <div class="core-label"><span class="live-dot"></span> J.A.R.V.I.S CORE <em id="mode">READY</em></div>
+    <div id="core" class="core" aria-label="JARVIS core">
+      <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div><div class="ring r4"></div>
+      <div class="core-face"><div class="eye"></div><b>J.A.R.V.I.S</b><small id="coreState">ONLINE</small></div>
+      <div class="orbit o1"></div><div class="orbit o2"></div>
+    </div>
+    <div id="holo" class="holo hidden"><div class="holo-grid"></div><div class="helmet"><div class="helmet-top"></div><div class="helmet-eye left"></div><div class="helmet-eye right"></div><div class="helmet-jaw"></div></div><div class="holo-caption">HOLOGRAPHIC PROJECTION // MARK VII</div></div>
+    <div class="readout left-readout"><span>PROCESSING</span><b id="proc">0000.000</b><small>OPS / SEC</small></div>
+    <div class="readout right-readout"><span>LATENCY</span><b id="latency">0.02s</b><small>NEURAL LINK</small></div>
+    <div id="response" class="response">Aguardando comando.</div>
+  </section>
+
+  <aside class="right-panel">
+    <section class="panel telemetry"><div class="panel-title">TELEMETRY</div><div class="tele-grid"><div><small>CPU</small><b id="cpu">--</b></div><div><small>MEM</small><b id="mem">--</b></div><div><small>BATTERY</small><b id="battery">--</b></div><div><small>SCREEN</small><b id="screen">--</b></div></div><div class="bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></section>
+    <section class="panel feed"><div class="panel-title">LIVE FEED <span id="feedStatus">STANDBY</span></div><div id="feedItems"><div class="feed-row"><b>00:00</b><span>Neural interface initialized.</span></div></div></section>
+    <section class="panel weather-card"><div class="panel-title">ENVIRONMENT</div><div class="weather-main"><span id="weatherIcon">◌</span><div><b id="temp">--°</b><small id="place">LOCAL NODE</small></div></div><div class="weather-sub"><span>WIND <b id="wind">--</b></span><span>HUM <b id="hum">--</b></span></div></section>
+  </aside>
 </main>
-<div id="modal" class="modal hidden"><div class="modal-card panel"><button class="close" id="close">×</button><div class="section-title" id="modalTitle">J.A.R.V.I.S</div><div id="modalBody"></div></div></div>
-<div id="toast"></div>
+<footer class="command-deck">
+  <button id="mic" class="mic">◉</button><input id="command" autocomplete="off" placeholder="EXECUTE COMMAND / ASK J.A.R.V.I.S..."/><button id="send" class="send">➤</button>
+  <div class="deck-hint">ENTER: EXECUTE <span>//</span> V: VOICE <span>//</span> H: HOLOGRAM</div>
+</footer>
+<div id="overlay" class="overlay hidden"><div class="modal panel"><button id="closeModal" class="close">×</button><div id="modalContent"></div></div></div>
 <script src="app.js"></script>
 </body></html>
