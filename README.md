@@ -1,33 +1,23 @@
-# J.A.R.V.I.S — Web Edition
+# J.A.R.V.I.S Web v3.0
 
-Esta é uma adaptação do projeto Python original para funcionar diretamente no navegador.
+Interface HUD inspirada no conceito gerado para o projeto. Não requer Python, pip, Node ou instalações locais.
 
 ## Como usar
+Abra `index.html` ou publique a pasta em GitHub Pages/Netlify/Vercel.
 
-Abra `index.html` em um navegador moderno, ou publique a pasta em Netlify/GitHub Pages/Vercel. Não é necessário instalar Python, pip, PyAudio, OpenCV, Tesseract ou outras dependências locais.
-
-**Chrome/Edge** são recomendados para reconhecimento de voz e câmera.
-
-## Funções adaptadas
-- Comandos por texto e voz
-- Resposta por voz usando Speech Synthesis do navegador
-- Hora
-- Clima usando geolocalização + Open-Meteo
+## Recursos
+- Reconhecimento e síntese de voz pelo navegador
+- Clima via Open-Meteo
 - Wikipedia
-- YouTube/Google/Amazon/Stack Overflow/GitHub
-- Busca no Google e YouTube
-- Notícias
+- Google / YouTube / Amazon
+- Notícias via Spaceflight News API
 - Piadas
-- Dicionário local (`data.json`)
-- Memória persistente via localStorage
-- Informações de sistema que o navegador permite expor
-- Captura de tela com permissão do navegador
-- Música por arquivo escolhido pelo usuário
-- E-mail via `mailto:`
+- Dicionário
+- Memória local
 - Câmera
-- OCR com Tesseract.js carregado por CDN
+- Captura da tela com permissão do navegador
+- Música via YouTube
+- E-mail via mailto
+- Informações do navegador/dispositivo
 
-## Limitações do navegador
-O Python original tinha acesso privilegiado ao computador. Um site não pode, por segurança, desligar o PC, abrir programas locais, enviar e-mail silenciosamente ou baixar vídeos do YouTube como um programa desktop. Essas funções foram convertidas para alternativas seguras no navegador.
-
-A autenticação facial original usava OpenCV + `trainer.yml`. Esse modelo Python não é diretamente compatível com o navegador; a página mantém câmera/OCR e sinaliza essa diferença em vez de fingir que a autenticação original continua igual.
+Alguns recursos do programa Python original (desligar PC, abrir VS Code, reconhecimento facial local e controle direto do sistema operacional) não são permitidos por um site comum e foram substituídos por alternativas web.
