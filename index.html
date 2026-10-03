@@ -1,55 +1,51 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>J.A.R.V.I.S — Personal AI</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#020812"><title>J.A.R.V.I.S — Personal Assistant</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="scanlines"></div><div class="vignette"></div>
+<div class="scanlines"></div><div class="grid"></div>
 <header class="topbar">
-  <div class="brand"><div class="arc-mini">✦</div><div><b>J.A.R.V.I.S</b><span>v3.0 WEB CORE</span></div></div>
-  <div class="top-status"><span id="date">--/--/----</span><strong id="clock">--:--:--</strong><span class="dot"></span><span>ONLINE</span><button id="settingsBtn" title="Configurações">⚙</button></div>
+  <div class="brand"><div class="brand-orb">✦</div><div><b>J.A.R.V.I.S</b><small>JUST A RATHER VERY INTELLIGENT SYSTEM</small></div><span class="version">v3.0</span></div>
+  <div class="top-status"><span id="date">--/--/----</span><span id="clock">--:--:--</span><i>◉ ONLINE</i><button id="settings">⚙</button></div>
 </header>
-<main class="grid">
-  <aside class="panel sidebar">
-    <div class="section-title">◈ SISTEMAS</div>
-    <button class="nav active" data-action="voice">🎙 <span>Comandos de voz</span></button>
-    <button class="nav" data-action="weather">☁ <span>Clima</span></button>
-    <button class="nav" data-action="wiki">W <span>Wikipedia</span></button>
-    <button class="nav" data-action="search">⌕ <span>Pesquisar</span></button>
-    <button class="nav" data-action="youtube">▶ <span>YouTube</span></button>
-    <button class="nav" data-action="amazon">A <span>Amazon</span></button>
-    <button class="nav" data-action="news">▤ <span>Notícias</span></button>
-    <button class="nav" data-action="joke">☻ <span>Piadas</span></button>
-    <button class="nav" data-action="dictionary">▣ <span>Dicionário</span></button>
-    <button class="nav" data-action="memory">◉ <span>Memória</span></button>
-    <button class="nav" data-action="screenshot">▣ <span>Captura de tela</span></button>
-    <button class="nav" data-action="camera">▰ <span>Câmera</span></button>
-    <button class="nav" data-action="ocr">⌁ <span>OCR</span></button>
-    <button class="nav" data-action="music">♫ <span>Música</span></button>
-    <button class="nav" data-action="email">✉ <span>E-mail</span></button>
-    <button class="nav" data-action="system">▤ <span>Sistema</span></button>
-  </aside>
-
-  <section class="center">
-    <div class="assistant-card panel"><div class="avatar">◈</div><div><strong>J.A.R.V.I.S</strong><small><i></i> ONLINE</small><span id="statusText">Pronto para ajudar.</span></div><div class="latency">RESP. <b id="latency">0.2s</b></div></div>
-    <div class="radar panel"><div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div><div class="cross"></div><div class="core"><span>J.A.R.V.I.S</span><b id="coreState">ONLINE</b></div><div class="orbit o1"></div><div class="orbit o2"></div></div>
-    <div class="speech panel"><div class="wave" id="wave"></div><div><small>J.A.R.V.I.S</small><p id="reply">Olá. Sou o J.A.R.V.I.S. Como posso ajudar hoje?</p></div></div>
-    <div class="quick panel"><div class="section-title">◈ FUNÇÕES RÁPIDAS</div><div class="quick-grid">
-      <button data-action="weather"><b>☁</b><span>Clima</span><small>Previsão do tempo</small></button><button data-action="wiki"><b>W</b><span>Wikipedia</span><small>Pesquisar fatos</small></button><button data-action="youtube"><b>▶</b><span>YouTube</span><small>Vídeos e músicas</small></button><button data-action="search"><b>G</b><span>Google</span><small>Pesquisar na web</small></button><button data-action="amazon"><b>A</b><span>Amazon</span><small>Compras e ofertas</small></button><button data-action="news"><b>▤</b><span>Notícias</span><small>Últimas notícias</small></button><button data-action="joke"><b>☻</b><span>Piadas</span><small>Uma boa risada</small></button><button data-action="dictionary"><b>▣</b><span>Dicionário</span><small>Tradução e significado</small></button><button data-action="camera"><b>▰</b><span>Câmera</span><small>Usar fotos/vídeos</small></button><button data-action="screenshot"><b>▣</b><span>Captura de tela</span><small>Imagem da tela</small></button><button data-action="music"><b>♫</b><span>Música</span><small>Reproduzir músicas</small></button><button data-action="email"><b>✉</b><span>E-mail</span><small>Enviar e receber</small></button><button data-action="memory"><b>◉</b><span>Memória</span><small>Lembrar de algo</small></button><button data-action="ocr"><b>⌁</b><span>OCR</span><small>Ler textos da tela</small></button><button data-action="system"><b>▤</b><span>Sistema</span><small>Informações do PC</small></button>
-    </div></div>
-    <div class="command panel"><button id="mic" title="Ouvir">🎙</button><input id="command" autocomplete="off" placeholder="Digite ou fale um comando..."/><button id="send">➤</button></div>
-  </section>
-
-  <aside class="rightcol">
-    <div class="panel weather"><div class="section-title">◈ CLIMA</div><div class="weather-main"><span id="weatherIcon">☀</span><div><strong id="temp">--°C</strong><small id="place">Localizando...</small></div></div><div class="forecast" id="forecast"></div></div>
-    <div class="panel news"><div class="section-title">◈ ÚLTIMAS ATUALIZAÇÕES <button id="newsBtn">ATUALIZAR</button></div><div id="newsList"><div class="news-item">Aguardando dados da web...</div></div></div>
-    <div class="panel system"><div class="section-title">◈ INFORMAÇÕES DO SISTEMA</div><div class="sysrow"><span>Navegador</span><b id="browser">—</b></div><div class="sysrow"><span>Plataforma</span><b id="platform">—</b></div><div class="sysrow"><span>Idioma</span><b id="lang">—</b></div><div class="sysrow"><span>Memória JARVIS</span><b id="memStatus">0 itens</b></div><div class="meter"><span id="meterFill"></span></div><small>STATUS DO NÚCLEO <b>ESTÁVEL</b></small></div>
-    <div class="panel quote"><div class="iron">◉</div><p>“O futuro não é algo que acontece. É algo que nós criamos.”</p><small>— J.A.R.V.I.S</small></div>
-  </aside>
+<main class="dashboard">
+<aside class="sidebar panel">
+ <div class="panel-title">COMMAND CENTER</div>
+ <button class="nav active" data-action="listen">🎙 <span>Comandos de voz</span></button>
+ <button class="nav" data-action="weather">☼ <span>Clima</span></button>
+ <button class="nav" data-action="wiki">W <span>Wikipedia</span></button>
+ <button class="nav" data-action="search">⌕ <span>Pesquisar</span></button>
+ <button class="nav" data-action="youtube">▶ <span>YouTube</span></button>
+ <button class="nav" data-action="amazon">a <span>Amazon</span></button>
+ <button class="nav" data-action="news">▣ <span>Notícias</span></button>
+ <button class="nav" data-action="joke">☻ <span>Piadas</span></button>
+ <button class="nav" data-action="dictionary">◇ <span>Dicionário</span></button>
+ <button class="nav" data-action="memory">▣ <span>Memória</span></button>
+ <button class="nav" data-action="screenshot">▣ <span>Captura de tela</span></button>
+ <button class="nav" data-action="camera">◎ <span>Câmera</span></button>
+ <button class="nav" data-action="music">♫ <span>Música</span></button>
+ <button class="nav" data-action="email">✉ <span>E-mail</span></button>
+ <button class="nav" data-action="system">⚙ <span>Sistema</span></button>
+</aside>
+<section class="center">
+ <div class="identity panel"><div class="avatar">◈</div><div><strong>J.A.R.V.I.S</strong><span><em></em> ONLINE</span><small>Pronto para ajudar.</small></div><div class="latency">RESPONSE<br><b id="latency">0.2s</b></div></div>
+ <div class="core-wrap"><div class="orbit o1"></div><div class="orbit o2"></div><div class="orbit o3"></div><div class="core"><span>J.A.R.V.I.S</span><b id="coreState">ONLINE</b></div></div>
+ <div class="voice panel"><div class="voice-icon">⌁</div><div class="wave" id="wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="voice-text"><b id="voiceTitle">RECONHECIMENTO DE VOZ</b><span id="voiceStatus">Aguardando comando...</span></div><button id="mic" class="mic">🎙</button></div>
+ <div class="message panel"><div class="pulse"></div><div><b id="responseTitle">Olá, sou o J.A.R.V.I.S.</b><span id="response">Como posso ajudar hoje?</span></div></div>
+ <div class="quick panel"><div class="section-title">FUNÇÕES RÁPIDAS</div><div class="quick-grid" id="quickGrid"></div></div>
+ <div class="command"><button id="commandMic">🎙</button><input id="command" placeholder="Digite ou fale um comando..." autocomplete="off"><button id="send">➤</button></div>
+ </section>
+<aside class="right">
+ <section class="panel weather"><div class="section-title">CLIMA <span id="weatherPlace">LOCAL</span></div><div class="weather-main"><div class="weather-icon">☁️</div><div><b id="temp">--°C</b><span id="desc">Buscando condições...</span></div></div><div class="forecast"><div>HOJE<b id="f1">--°</b></div><div>AMANHÃ<b id="f2">--°</b></div><div>SEX<b id="f3">--°</b></div><div>SÁB<b id="f4">--°</b></div></div></section>
+ <section class="panel news"><div class="section-title">ÚLTIMAS NOTÍCIAS <button id="newsMore">VER MAIS</button></div><div id="newsList"><div class="newsrow"><span>01</span><div><b>J.A.R.V.I.S</b><p>Conectando aos seus serviços...</p></div></div><div class="newsrow"><span>02</span><div><b>SISTEMA</b><p>Todos os módulos web estão prontos.</p></div></div></div></section>
+ <section class="panel system"><div class="section-title">INFORMAÇÕES DO SISTEMA</div><div class="sysrow"><span>◫ Sistema</span><b id="os">Navegador</b></div><div class="sysrow"><span>⚙ CPU</span><b id="cpu">--</b></div><div class="sysrow"><span>▣ Memória</span><b id="ram">--</b></div><div class="meter"><span>ATIVIDADE</span><b id="usage">28%</b><div><i id="meterBar"></i></div></div><div class="chart"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></section>
+ <section class="panel quote"><div class="helmet">◉</div><p>“O futuro não é algo que acontece.<br>É algo que nós criamos.”</p><small>— J.A.R.V.I.S</small></section>
+</aside>
 </main>
-<div class="modal hidden" id="modal"><div class="modal-box panel"><button class="close" id="close">×</button><div class="section-title" id="modalTitle">J.A.R.V.I.S</div><div id="modalBody"></div></div></div>
+<div id="modal" class="modal hidden"><div class="modal-card panel"><button class="close" id="close">×</button><div class="section-title" id="modalTitle">J.A.R.V.I.S</div><div id="modalBody"></div></div></div>
+<div id="toast"></div>
 <script src="app.js"></script>
 </body></html>

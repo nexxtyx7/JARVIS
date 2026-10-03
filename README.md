@@ -1,23 +1,9 @@
-# J.A.R.V.I.S Web v3.0
+# J.A.R.V.I.S Web — Iron HUD
 
-Interface HUD inspirada no conceito gerado para o projeto. Não requer Python, pip, Node ou instalações locais.
+Versão web estática do projeto J.A.R.V.I.S. Não exige Python, pip, Node ou instalação de bibliotecas.
 
-## Como usar
-Abra `index.html` ou publique a pasta em GitHub Pages/Netlify/Vercel.
+## GitHub Pages
+Coloque `index.html`, `style.css` e `app.js` na raiz do repositório e ative GitHub Pages. O `index.html` precisa estar no nível superior da fonte publicada.
 
-## Recursos
-- Reconhecimento e síntese de voz pelo navegador
-- Clima via Open-Meteo
-- Wikipedia
-- Google / YouTube / Amazon
-- Notícias via Spaceflight News API
-- Piadas
-- Dicionário
-- Memória local
-- Câmera
-- Captura da tela com permissão do navegador
-- Música via YouTube
-- E-mail via mailto
-- Informações do navegador/dispositivo
-
-Alguns recursos do programa Python original (desligar PC, abrir VS Code, reconhecimento facial local e controle direto do sistema operacional) não são permitidos por um site comum e foram substituídos por alternativas web.
+## Observações
+Algumas funções do projeto Python original não podem ser executadas diretamente por um site por causa das permissões do navegador (desligar PC, abrir VS Code, controlar arquivos locais, etc.). Foram substituídas por ações web equivalentes.
